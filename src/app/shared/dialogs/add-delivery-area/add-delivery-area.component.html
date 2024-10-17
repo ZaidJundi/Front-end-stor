@@ -1,0 +1,35 @@
+<form [formGroup]="governmentForm" (ngSubmit)="submitForm()" class="category-form">
+  <mat-card class="category-card">
+    <mat-card-header>
+      <mat-card-title>Add Delivery Area</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Area Name Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Area Name</mat-label>
+        <input matInput id="name" formControlName="governmentName" placeholder="Add Area Name">
+        <mat-error *ngIf="governmentForm.get('governmentName')?.hasError('required') && governmentForm.get('governmentName')?.touched">
+          Area Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Delivery Price Field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Delivery Price</mat-label>
+        <input matInput id="price" formControlName="deliveryPrice" type="number" placeholder="Add Delivery Price">
+        <mat-error *ngIf="governmentForm.get('deliveryPrice')?.hasError('required') && governmentForm.get('deliveryPrice')?.touched">
+          Delivery Price is required.
+        </mat-error>
+        <mat-error *ngIf="governmentForm.get('deliveryPrice')?.hasError('min') && governmentForm.get('deliveryPrice')?.touched">
+          Delivery Price must be a positive number.
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="governmentForm.invalid">Add</button>
+      <button mat-raised-button color="warn" type="button" (click)="confirmExit()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

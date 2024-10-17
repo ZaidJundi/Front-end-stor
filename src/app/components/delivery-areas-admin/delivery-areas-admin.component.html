@@ -1,0 +1,55 @@
+<div class="category-table-container">
+  <mat-card class="category-card">
+    <mat-card-header class="category-card-header">
+      <mat-card-title class="category-card-title">Manage Delivery Areas</mat-card-title>
+      <button mat-raised-button color="primary" (click)="addGovernment()" class="add-category-button">
+        <mat-icon>add</mat-icon> Add Areas
+      </button>
+    </mat-card-header>
+
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search Areas</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="filteredGovernments" matSort class="mat-elevation-z8 category-table">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> # </th>
+        <td mat-cell *matCellDef="let government; let i = index"> {{ i + 1 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="governmentName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Area Name </th>
+        <td mat-cell *matCellDef="let government"> {{ government.governmentName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deliveryPrice">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="header-cell"> Delivery Price </th>
+        <td mat-cell *matCellDef="let government"> {{ government.deliveryPrice || 0 }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Actions </th>
+        <td mat-cell *matCellDef="let government" class="action-buttons">
+          <button mat-icon-button color="primary" (click)="editGovernment(government)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteGovernment(government)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="header-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="data-row"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    <mat-card-content *ngIf="filteredGovernments.data.length === 0">
+      <p class="no-categories-message">No Area available.</p>
+    </mat-card-content>
+
+  </mat-card>
+</div>

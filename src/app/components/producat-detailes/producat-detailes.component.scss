@@ -1,0 +1,165 @@
+/* Animation for content appearance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-content {
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.animate-title {
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.animate-image {
+  animation: zoomIn 0.8s ease-in-out;
+}
+.product-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 30px;
+  align-items: start;
+  max-width: 100%;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.product-image {
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.product-detail-image {
+  width: 100%;
+  height: auto; /* لضمان تناسب الصورة */
+  max-height: 500px; /* تحديد الحد الأقصى للارتفاع */
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  object-fit: contain;
+
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.product-detail-image:hover {
+  transform: scale(1.05);
+}
+
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.product-info p {
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+mat-dialog-content {
+  padding: 50px;
+}
+
+.dialog-title {
+  font-size: 32px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+
+mat-dialog-actions {
+  padding: 10px 40px;
+}
+/* تحسين النص */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 15px;
+}
+.product-info strong {
+  color: #4d2952;
+  font-weight: bold;
+}
+/* تصميم الأزرار */
+.add-shopping {
+  background-color: #4d2952;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.4s ease, transform 0.3s ease;
+}
+  .add-shopping:hover{
+    color: #ffffff;
+    transform: scale(1.05);
+    background-color: #4d2952;
+    }
+::ng-deep .mat-dialog-container {
+  max-width: 90vw;
+  height: auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+@media screen and (max-width: 768px) {
+  .product-detail-container {
+    grid-template-columns: 1fr; /* جعل الأعمدة عمود واحد فقط في العرض الأصغر */
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .product-image {
+    justify-content: center;
+    margin-bottom: 20px; /* إضافة مسافة بين الصورة والنص */
+  }
+
+  .product-detail-image {
+    max-height: 300px; /* تقليل ارتفاع الصورة على الهواتف */
+  }
+
+  .product-info p {
+    font-size: 16px; /* تقليل حجم النص قليلاً */
+  }
+
+  .dialog-title {
+    font-size: 24px; /* تقليل حجم العنوان على الهواتف */
+  }
+}

@@ -1,0 +1,82 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: url('https://png.pngtree.com/thumb_back/fw800/background/20230903/pngtree-drug-safety-what-the-pharmacist-should-know-image_13182921.jpg') no-repeat center center/cover;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(98%);
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.login-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  z-index: 1;
+}
+
+.login-header {
+  margin-bottom: 10px;
+}
+
+.logo {
+  max-width: 80px;
+  margin-bottom: 15px;
+}
+
+.login-title {
+  margin: 0;
+  color: #0d79b7;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.login-subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form-field {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.login-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-button {
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.forgot-password {
+  color: #0d79b7;
+  font-size: 14px;
+}

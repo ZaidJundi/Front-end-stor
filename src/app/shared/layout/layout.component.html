@@ -1,0 +1,232 @@
+<div class="app-container">
+
+<div class="navbar-container" [class.navbar-is-mobile]="mobileQuery.matches">
+  <mat-toolbar class="navbar" color="primary">
+    <button *ngIf="shouldShowMenuButton && isLoggedIn" mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <a class="navbar-brand logo" [routerLink]="['/stor']" matTooltip="Home">
+      <div class="logo-container">
+        <span class="logo-icon">💊</span>
+        <span class="logo-text">Online Pharmacy</span>
+      </div>
+    </a>
+
+
+    <span class="flex-spacer"></span>
+
+    <a mat-button class="stor" [routerLink]="['/stor']">
+      <span>Stor</span >
+    </a>
+    <span class="flex2-spacer"></span>
+
+    <a mat-button [matMenuTriggerFor]="categoriesMenu" class="stor">
+      <span>Categories</span>
+    </a>
+    <mat-menu #categoriesMenu="matMenu">
+
+      <button mat-menu-item (click)="onCategoryClick('products-by-category',category.id)" *ngFor="let category of categories">
+        {{ category.name }}
+
+      </button>
+
+    </mat-menu>
+
+
+
+
+    <mat-menu>
+
+    </mat-menu>
+    <span class="flex2-spacer"></span>
+
+    <a mat-button class="stor" [routerLink]="['/contact-us']">
+      <span>Contact Us</span>
+    </a>
+    <span class="flex2-spacer"></span>
+
+
+
+    <span class="navbar-spacer"></span>
+
+    <mat-form-field class="search-bar">
+      <input
+        type="text"
+        matInput
+        [(ngModel)]="test"
+        (keyup)="search()"
+        [matAutocomplete]="auto"
+        placeholder="Search..."
+      />
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-autocomplete #auto="matAutocomplete"  >
+      <mat-option *ngFor="let product of filteredProducts" [value]="product.productName" (click)="openProductDetails(product)">
+        <img [src]="product.imageUrl" alt="{{product.productName}}" class="product-image" />
+        {{ product.productName }}
+
+      </mat-option>
+    </mat-autocomplete>
+
+
+
+
+    <button mat-icon-button [matMenuTriggerFor]="favoritesMenu" matTooltip="Favorites">
+      <mat-icon [matBadge]="getFavoriteCount"  matBadgeColor="primary">favorite</mat-icon>
+    </button>
+
+    <mat-menu #favoritesMenu="matMenu">
+      <ng-container *ngIf="favoriteItems.length > 0; else emptyFavorites">
+        <div class="cart-item" *ngFor="let item of favoriteItems">
+          <img [src]="item.imageUrl" alt="{{ item.productName }}" class="cart-item-image" (click)="openProductDetails(item)">
+          <div class="cart-item-details">
+            <h3 (click)="openProductDetails(item)">{{ item.productName }}</h3>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #emptyFavorites>
+        <p>No favorites</p>
+      </ng-template>
+    </mat-menu>
+
+
+
+    <button mat-icon-button [matMenuTriggerFor]="cartMenu" matTooltip="Shopping Cart">
+      <mat-icon [matBadge]="getUniqueProductCount" matBadgeColor="accent">shopping_cart</mat-icon>
+
+    </button>
+
+    <mat-menu #cartMenu="matMenu">
+      <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <img [src]="item.image" alt="{{ item.title }}" class="cart-item-image">
+          <div class="cart-item-details">
+            <h3>{{ item.title }}</h3>
+
+            <p>{{ item.quantity }} x {{ item.price }}$ = {{ item.totalPrice.toFixed(2) }}₪</p>
+          </div>
+          <button mat-button color="warn" (click)="removeFromCart(item.id)">Remove</button>
+        </div>
+        <div class="cart-total">
+          <h3>Total: {{ totalPrice.toFixed(2) }} ₪</h3>
+        </div>
+
+
+        <button mat-button color="primary" (click)="checkout()">Checkout</button>
+      </ng-container>
+
+      <div >
+        <ng-template  #emptyCart>
+          <p>No items </p>
+        </ng-template>
+      </div>
+
+    </mat-menu>
+
+
+
+
+
+    <button mat-button  *ngIf="isLoggedIn"  [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon>
+      <span fxShow fxHide.xs>{{name}}</span>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+      <a mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-menu>
+  </mat-toolbar>
+
+
+  <mat-sidenav-container class="navbar-sidenav-container">
+    <mat-sidenav #snav
+    [opened]="!mobileQuery.matches && isLoggedIn"
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches"
+    fixedTopGap="56"
+    class="sidenav"
+    [hidden]="!isLoggedIn">
+
+      <mat-nav-list>
+        <h3 mat-subheader class="subheader">Home</h3>
+
+        <a mat-list-item class="list-item" [routerLink]="['/']" routerLinkActive="active">
+          <mat-icon mat-list-icon>dashboard</mat-icon>
+          <p mat-line>Dashboard</p>
+        </a>
+
+        <a mat-list-item class="list-item" [routerLink]="['admin/products']" routerLinkActive="active">
+          <mat-icon mat-list-icon>inventory_2</mat-icon>
+          <p mat-line>Products</p>
+        </a>
+
+        <a mat-list-item class="list-item" [routerLink]="['admin/categories']" routerLinkActive="active">
+          <mat-icon mat-list-icon>category</mat-icon>
+          <p mat-line>Categories</p>
+        </a>
+
+        <a mat-list-item class="list-item" [routerLink]="['admin/delivery-areas']" routerLinkActive="active">
+          <mat-icon mat-list-icon>location_on</mat-icon>
+          <p mat-line>Delivery Areas</p>
+        </a>
+
+        <a mat-list-item class="list-item" [routerLink]="['/']" routerLinkActive="active">
+          <mat-icon mat-list-icon>receipt_long</mat-icon>
+          <p mat-line>Orders</p>
+        </a>
+
+        <a mat-list-item class="list-item" [routerLink]="['/']" routerLinkActive="active">
+          <mat-icon mat-list-icon>sell</mat-icon>
+          <p mat-line>Sales</p>
+        </a>
+
+        <a mat-list-item class="list-item" [routerLink]="['/']" routerLinkActive="active">
+          <mat-icon mat-list-icon>bar_chart</mat-icon>
+          <p mat-line>Reports</p>
+        </a>
+
+        <mat-divider></mat-divider>
+
+        <h3 mat-subheader class="subheader">Other</h3>
+
+        <a mat-list-item class="list-item" [routerLink]="['/']">
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <p mat-line>Settings</p>
+        </a>
+
+        <a mat-list-item class="list-item logout-item" (click)="logout()">
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+          <p mat-line>Logout</p>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <div >
+        <router-outlet></router-outlet>
+      </div>
+        </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+<footer *ngIf="shouldShowFooter" class="footer">
+  <div class="footer-content">
+    <p>&copy; 2024 Online Pharmacy. All rights reserved.</p>
+    <div class="powered-by">
+      <p>Powered By Experts Trainees</p>
+    </div>
+    <div class="footer-links">
+      <a (click)="openPrivacyDialog()">Privacy Policy</a>
+      <a (click)="openTermsDialog()">Terms of Service</a>
+      <a [routerLink]="['/contact-us']">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+</div>

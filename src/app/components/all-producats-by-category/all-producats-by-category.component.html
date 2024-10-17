@@ -1,0 +1,30 @@
+<body>
+  <div class="slideshow-container">
+    <div class="slide fade" *ngFor="let slide of slides; let i = index" [ngStyle]="{'display': i === currentSlide ? 'block' : 'none'}">
+      <img [src]="slide" class="slide-image">
+    </div>
+  </div>
+
+  <mat-card *ngIf="category" class="outlined" appearance="outlined">
+    <mat-card-content class="category-header">
+      <span>{{ category.name }}</span>
+      <span class="product-count">Number Of Products: {{ productsByCategory.length }}</span>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="product-grid">
+    <mat-card *ngFor="let product of productsByCategory" class="product-card">
+      <img mat-card-image class="productImg" [src]="product?.imageUrl" alt="Product Image"  (click)="openProductDetails(product)">
+      <mat-card-content>
+        <h4 class="product-title">{{ product?.productName }}</h4>
+        <p><span class="original-price">{{ product?.price }} ₪</span></p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="add-shopping" mat-button color="primary" (click)="addToCart(product)"><mat-icon>add_shopping_cart</mat-icon></button>
+        <button mat-button (click)="toggleFavorite(product)">
+          <mat-icon [color]="isFavorite(product) ? 'warn' : 'primary'">favorite</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</body>

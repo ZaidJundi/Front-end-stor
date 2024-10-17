@@ -1,0 +1,34 @@
+<h2 mat-dialog-title class="dialog-title animate-title">{{ data.productName }}</h2>
+
+<mat-dialog-content>
+  <div class="product-detail-container animate-content">
+    <div class="product-image animate-image">
+      <img [src]="data.imageUrl" alt="Product Image" class="product-detail-image">
+    </div>
+
+    <div class="product-info">
+      <p><strong>💲 Price:</strong> {{ data.price }} ₪</p>
+      <mat-divider></mat-divider>
+
+      <p><strong>📦 Available Count:</strong> {{ data.count }}</p>
+      <mat-divider></mat-divider>
+
+      <p><strong>📝 Description:</strong> {{ data.description }}</p>
+      <mat-divider></mat-divider>
+
+      <p><strong>🛠️ How to Use:</strong> {{ data.howToUse }}</p>
+      <mat-divider></mat-divider>
+
+      <p><strong>🏷️ Category:</strong> {{ category.name }}</p>
+      <mat-divider></mat-divider>
+
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button class="add-shopping" mat-button color="primary" (click)="addToCart(data)">
+    <mat-icon>add_shopping_cart</mat-icon> Add to Cart
+  </button>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

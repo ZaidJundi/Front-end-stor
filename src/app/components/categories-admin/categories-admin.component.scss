@@ -1,0 +1,55 @@
+.category-table-container {
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.category-card {
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 6px 6px rgba(0, 0, 0, 0.10);
+  border-radius: 8px;
+}
+
+.category-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.category-card-title {
+  font-size: 1.5em;
+}
+
+.add-category-button {
+  font-weight: bold;
+}
+
+.search-field {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.category-table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.header-cell {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #4d2952;
+}
+
+
+
+
+
+
+
+.no-categories-message {
+  text-align: center;
+  color: #777;
+  font-size: 1.2em;
+  margin: 20px 0;
+}

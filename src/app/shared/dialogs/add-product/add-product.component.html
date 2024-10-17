@@ -1,0 +1,66 @@
+<form [formGroup]="productForm" (ngSubmit)="submitForm()">
+  <h2 mat-dialog-title>Add Product</h2>
+
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId" required>
+        <mat-option *ngFor="let category of categorys" [value]="category.id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="productForm.get('categoryId')?.invalid">Category is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Product Name</mat-label>
+      <input matInput formControlName="productName" required />
+      <mat-error *ngIf="productForm.get('productName')?.invalid">Product name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="3" required></textarea>
+      <mat-error *ngIf="productForm.get('description')?.invalid">Description is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>How to Use</mat-label>
+      <textarea matInput formControlName="howToUse" rows="2" required></textarea>
+      <mat-error *ngIf="productForm.get('howToUse')?.invalid">Instructions are required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Count</mat-label>
+      <input matInput type="number" formControlName="count" required min="0" />
+      <mat-error *ngIf="productForm.get('count')?.invalid">Count must be a non-negative number</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" formControlName="price" required min="0" />
+      <mat-error *ngIf="productForm.get('price')?.invalid">Price must be a non-negative number</mat-error>
+    </mat-form-field>
+
+    <div>
+      <label for="fileUpload">Product Image</label>
+      <input type="file" id="fileUpload" formControlName="imageUrl" (change)="onFileSelected($event)" />
+      <mat-error *ngIf="productForm.get('imageUrl')?.invalid">Image is required</mat-error>
+    </div>
+
+    <div *ngIf="imagePreview">
+      <img [src]="imagePreview" class="product-image" alt="Product Image"  />
+    </div>
+
+    <mat-slide-toggle formControlName="isActive">
+      {{ productForm.get('isActive')?.value ? 'Active' : 'Inactive' }}
+    </mat-slide-toggle>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Add</button>
+    <button mat-raised-button color="warn" type="button" (click)="confirmExit()">Cancel</button>
+  </mat-dialog-actions>
+</form>

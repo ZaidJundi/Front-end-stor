@@ -1,0 +1,95 @@
+<div class="container contact-container">
+  <div class="row slide-row">
+    <div class="slide-container">
+      <div class="slide fade" *ngFor="let slide of slides">
+        <img [src]="slide" class="slide-image" alt="Slide image">
+        <div class="slide-text">Customer Help</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-left form-section">
+      <form [formGroup]="contactForm">
+        <h2><mat-icon>help_outline</mat-icon> Contact Us</h2>
+
+        <mat-form-field appearance="fill">
+          <mat-label><mat-icon>person</mat-icon> Your Name</mat-label>
+          <input matInput id="name" formControlName="name" placeholder="Enter your name">
+          <mat-error *ngIf="contactForm.get('name')?.invalid && (contactForm.get('name')?.dirty || contactForm.get('name')?.touched)">
+            <span class="error-text">Name is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label><mat-icon>email</mat-icon> Your Email</mat-label>
+          <input matInput id="email" formControlName="email" placeholder="Enter your email">
+          <mat-error *ngIf="contactForm.get('email')?.invalid && (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)">
+            <span class="error-text">Valid email is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label><mat-icon>message</mat-icon> Your Message</mat-label>
+          <textarea matInput id="message" formControlName="message" placeholder="Write your message"></textarea>
+          <mat-error *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)">
+            <span class="error-text">Message is required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <button (click)="onSubmit()" [disabled]="contactForm.invalid" class="submit-button">
+          <mat-icon class="send">send</mat-icon> Submit
+        </button>
+      </form>
+    </div>
+
+    <div class="col-right info-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><mat-icon>home</mat-icon> Address</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Rammala, Al-baloo', Palestine Mall</p>
+
+        </mat-card-content>
+
+      </mat-card>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><mat-icon>info</mat-icon> Contact Information</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><mat-icon>phone</mat-icon> Phone: +972 595461060</p>
+          <p><mat-icon>email</mat-icon> Email: experts.trainees&#64;gmail.com</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title><mat-icon>share</mat-icon> Follow Us</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul>
+            <li><a href="contact-us"><mat-icon>facebook</mat-icon> Facebook</a></li>
+            <li><a href="contact-us"><mat-icon>phone</mat-icon> WhatsApp</a></li>
+            <li><a href="contact-us"><mat-icon>linkedin</mat-icon> LinkedIn</a></li>
+          </ul>
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+  </div>
+
+  <div class="Location">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title><mat-icon>location_on</mat-icon> Our Location</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093745!2d35.2135071!3d31.9243474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d2b78ef120179%3A0x7b32baeb9754a3b0!2sPalestine%20Mall!5e0!3m2!1sen!2sin!4v1602504756863"
+        width="100%" height="400" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
